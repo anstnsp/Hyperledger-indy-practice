@@ -68,8 +68,8 @@ __Intellij__
 * Run the Project
 * If there is an error that config already exist. Remove `~/.indy_client` folder.
 
-__Shell__
-
+__Shell__.   
+indy-pool-IP 변경시 `export TEST_POOL_IP=[indy-pool ip]` 
 ```
 mvn clean install
 mvn exec:java -Dexec.mainClass=Main

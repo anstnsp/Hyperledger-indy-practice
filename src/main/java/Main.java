@@ -1,4 +1,4 @@
-import howto.*;
+import howto.NegotiateProofWithRevocation;
 
 public class Main {
 
@@ -8,9 +8,9 @@ public class Main {
 //		CreateSchemaAndCredDef.run(); //Schema, Credential definition 생성
 //		UpdateDIDdocument.run(); //DID document에서 인증키 변경, serviceEndpoint 추가
 //		IssueCredential.run();
-		NegotiateProof.run();
+//		NegotiateProof.run();
+		NegotiateProofWithRevocation.run();
 
-//		Teest.run();
 //		GettingStarted.run();
 
 

@@ -1,0 +1,40 @@
+@startuml
+
+title Update DID document
+
+actor "Steward" as S
+actor "Goverment(Endorser)" as G
+
+
+participant "indy-node" as I
+
+note over S, G 
+[스텝0-공통로직]
+- Open pool handles
+- Create wallets
+- Open wallets
+end note
+
+== 스텝1 - DID, DID document 생성 ==
+S -> S : createAndStoreMyDid
+G -> G : createAndStoreMyDid
+G --> S : Goverment가 DID 및 인증키를 \nSteward에게 전달하며 Endorser 자격등록 요청
+S -> S : buildNymRequest
+S -> I : signAndSubmitRequest
+I -> S : Request result as JSON
+
+== 스텝2 - 인증키 변경 == 
+
+G -> G : replaceKeysStart
+G -> G : buildNymRequest 
+G -> I : signAndSubmitRequest
+I -> G : replaceKeysApply
+I -> G : Request result as JSON
+
+==  스텝3 - serviceEndpoint 추가 ==
+G -> G : setEndpointForDid 
+G -> G : buildAttribRequest 
+G -> I : signAndSubmitRequest
+I -> G : Request result as JSON
+
+@enduml

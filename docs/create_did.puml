@@ -1,0 +1,32 @@
+@startuml
+
+title Write DID and Query its Verkey
+
+actor "Steward" as I
+actor "Goverment" as V
+actor "client" as P 
+
+participant "indy-node" as L
+
+note over I, P
+- Open pool handles
+- Create wallets
+- Open wallets
+end note
+
+== DID, DID document 생성 ==
+I -> I : createAndStoreMyDid
+V -> V : createAndStoreMyDid
+V --> I : Goverment가 DID 및 인증키를 \nSteward에게 전달하며 Endorser 자격등록 요청
+I -> I : buildNymRequest
+I -> L : signAndSubmitRequest
+L -> I : Request result as JSON
+
+== 블록체인에서 goverment verkey 조회 == 
+V --> P : DID 전달
+P -> P : createAndStoreMyDid
+P -> P : buildGetNymRequest
+P -> L : submitRequest
+L -> P : Request result as JSON
+
+@enduml

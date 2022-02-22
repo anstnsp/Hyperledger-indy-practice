@@ -1,0 +1,42 @@
+@startuml
+
+title Create Schema And Cred
+
+actor "Steward" as S
+actor "Goverment" as G
+
+
+participant "indy-node" as I
+
+note over S, G 
+공통로직
+- Open pool handles
+- Create wallets
+- Open wallets
+end note
+
+== DID, DID document 생성 ==
+S -> S : createAndStoreMyDid
+G -> G : createAndStoreMyDid
+G --> S : Goverment가 DID 및 인증키를 \nSteward에게 전달하며 Endorser 자격등록 요청
+S -> S : buildNymRequest
+S -> I : signAndSubmitRequest
+I -> S : Request result as JSON
+
+== Schema 생성 == 
+G -> G : issuerCreateSchema 
+G -> G : buildSchemaRequest 
+G -> I : signAndSubmitRequest
+I -> G : Request result as JSON
+
+==  Credential definition 생성 ==
+G -> G : buildGetSchemaRequest 
+G -> I : submitRequest
+I -> G : Request result as JSON 
+G -> G : parseGetSchemaResponse 
+G -> G : issuerCreateAndStoreCredentialDef 
+G -> G : buildCredDefRequest 
+G -> I : signAndSubmitRequest
+I -> G : Request result as JSON
+
+@enduml

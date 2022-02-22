@@ -80,6 +80,6 @@ public class PoolUtils {
 			}
 			Thread.sleep(RESUBMIT_REQUEST_TIMEOUT);
 		}
-		throw new IllegalStateException();
+		throw new IllegalStateException("reuqest가 렛저에 적용안댐!!!");
 	}
 }
